@@ -7,6 +7,8 @@ LedPin = 11    # pin11 --- led
 BtnPin = 13    # pin12 --- button
 
 def setup():
+	subprocess.call(["cancel","-a","-x"])
+	subprocess.call(["cupsenable","ZJ-58"])
 	GPIO.setmode(GPIO.BOARD)       # Numbers GPIOs by physical location
 	GPIO.setup(LedPin, GPIO.OUT)   # Set LedPin's mode is output
 	GPIO.setup(BtnPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Set BtnPin's mode is input, and pull up to high level(3.3V)
@@ -37,8 +39,8 @@ def loop():
 			time.sleep(1)
 			GPIO.output(LedPin, GPIO.HIGH)  # led on
 
-			subprocess.call(["raspistill", "-o", "myimage.jpg", "-t", "200"])
-			subprocess.call([ "lp" ,"-d", "zj-58" ,"-o" ,"position=top-right" ,"-o" ,"landscape" ,"-o" ,"media=Custom.58x210mm" ,"myimage.jpg"])
+			subprocess.call(["raspistill", "-o", "/tmp/myimage.jpg","-ev","+1.0","-ex","sports","-t", "400"])
+			subprocess.call([ "lp" ,"-d", "zj-58" ,"-o" ,"position=top-right" ,"-o" ,"landscape" ,"-o" ,"media=Custom.58x210mm" ,"/tmp/myimage.jpg"])
 
 		else:
 			print 'led off...'
