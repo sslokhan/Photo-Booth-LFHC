@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#Shehzad and Lohn
 import RPi.GPIO as GPIO
 import subprocess
 import time
@@ -19,27 +20,31 @@ def loop():
 		if (GPIO.input(BtnPin) == GPIO.LOW and (not prev_input)): # Check whether the button is pressed or not.
 			print '...led on'
 			GPIO.output(LedPin, GPIO.LOW)
-			# led on
+			# led timer
 			time.sleep(0.2)
-			GPIO.output(LedPin, GPIO.HIGH)  # led on
+			GPIO.output(LedPin, GPIO.HIGH)  
 			time.sleep(0.1)
-			GPIO.output(LedPin, GPIO.LOW)  # led on
+			GPIO.output(LedPin, GPIO.LOW)  
 			time.sleep(0.2)
-			GPIO.output(LedPin, GPIO.HIGH)  # led on
+			GPIO.output(LedPin, GPIO.HIGH)  
 			time.sleep(0.1)
-			GPIO.output(LedPin, GPIO.LOW)  # led on
+			GPIO.output(LedPin, GPIO.LOW)  
 			time.sleep(0.2)
-			GPIO.output(LedPin, GPIO.HIGH)  # led on
+			GPIO.output(LedPin, GPIO.HIGH)  
 			time.sleep(0.1)
-			GPIO.output(LedPin, GPIO.LOW)  # led on
+			GPIO.output(LedPin, GPIO.LOW)  
 			time.sleep(0.2)
-			GPIO.output(LedPin, GPIO.HIGH)  # led on
+			GPIO.output(LedPin, GPIO.HIGH) 
 			time.sleep(0.1)
-			GPIO.output(LedPin, GPIO.LOW)  # led on
+			GPIO.output(LedPin, GPIO.LOW)  
 			time.sleep(1)
-			GPIO.output(LedPin, GPIO.HIGH)  # led on
+			GPIO.output(LedPin, GPIO.HIGH)  
+
+			#Capture image
 
 			subprocess.call(["raspistill", "-o", "/tmp/myimage.jpg","-ev","+1.0","-ex","sports","-t", "400"])
+
+			# Send image to printer 
 			subprocess.call([ "lp" ,"-d", "zj-58" ,"-o" ,"position=top-right" ,"-o" ,"landscape" ,"-o" ,"media=Custom.58x210mm" ,"/tmp/myimage.jpg"])
 
 		else:
